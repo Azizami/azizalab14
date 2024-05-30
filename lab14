@@ -1,0 +1,28 @@
+#include <iostream>
+#include <map>
+using namespace std;
+
+
+int main() {
+    //problem1
+    map<int,int> m;
+    m[1]=1;
+    m[2]=4;
+    m[3]=9;
+    m[4]=16;
+    m[5]=25;
+    cout<<"Elelments in the map: ";
+    for (const auto &pair:m){
+        cout<<"["<<pair.first<<","<<pair.second<<"]"<<endl;
+
+
+    }
+    cout<<endl;
+    for(const auto &pair:m){
+        cout<<"Square of "<<pair.first<<" is "<<pair.second<<endl;
+
+    }
+
+
+    return 0;
+}
