@@ -23,6 +23,41 @@ int main() {
 
     }
 
+//problem 2
+    map<int,string> math;
+    math[4]="Mike";
+    math[3]="Elena";
+    math[1]="David";
+    math[5]="George";
+    math[2]="Indira";
+    for (const auto &pair:math){
+        cout<<pair.first<<" place is "<< pair.second<<endl;
+    }
+
+//problem3
+    map<char, int> alphabet_positions;
+    for (char c = 'A'; c <= 'Z'; ++c) {
+        alphabet_positions[c] = c - 'A' + 1;
+    }
+
+    // Ask the user to input a letter
+    char letter;
+    cout << "Enter a letter (uppercase): ";
+    cin >> letter;
+
+    // Convert the input letter to uppercase
+    letter = toupper(letter);
+
+    // Check if the input is a valid uppercase letter
+    if (isalpha(letter) && isupper(letter)) {
+        // Get the position of the letter from the map
+        int position = alphabet_positions[letter];
+        cout << "The position of " << letter << " in the alphabet is " << position << "." << endl;
+    } else {
+        cout << "Please enter a valid uppercase letter." << endl;
+    }
+
+
 
     return 0;
 }
