@@ -6,11 +6,50 @@
 #include <queue>
 #include <vector>
 #include <algorithm>
+#include <unordered_set>
+#include <unordered_map>
 
 
 
 using namespace std;
 
+//problem10
+void show(const unordered_set<int>& s) {
+    for (auto it = s.begin(); it != s.end(); ++it) {
+        cout << *it << " ";
+    }
+    cout << endl;
+}
+
+
+//problem9
+
+void show(const set<int>& s) {
+    for (auto it = s.begin(); it != s.end(); ++it) {
+        cout << *it << " ";
+    }
+    cout << endl;
+}
+
+//problem8
+
+bool isGoodSequence(const vector<int>& sequence) {
+    unordered_map<int, int> countMap;
+    
+    // Count occurrences of each number in the sequence
+    for (int num : sequence) {
+        countMap[num]++;
+    }
+    
+    // Check if the value of a given number x occurs x times in the sequence
+    for (const auto& pair : countMap) {
+        if (pair.second != pair.first) {
+            return false;
+        }
+    }
+    
+    return true;
+}
 //problem16
 
 int getLastDigit(int num) {
@@ -43,6 +82,8 @@ void displayMapp(const list<pair<string, int>>& myList) {
         cout << "(" << pair.first << ", " << pair.second << ")" << endl;
     }
 }
+
+
 //problem17
 
 void displayQueue(queue<int> q) {
@@ -61,6 +102,8 @@ void clearQueue(queue<int>& q) {
 }
 
 int main() {
+
+
 
 
     //problem1
@@ -193,6 +236,126 @@ unordered_map<string, int> myUnorderedMap = {
     cout << "\nMap after deleting key \"Venus\":" << endl;
     displayMapp(myList);
 
+//problem6
+
+ // 1. Create a multimap with the given pairs
+    multimap<int, int> myMultimap = {{100, 3}, {150, 4}, {100, 90}};
+
+    // 2. Using method .count() print how many keys are equal to 100
+    cout << "Number of keys equal to 100: " << myMultimap.count(100) << endl;
+
+    // 3. Insert the following pairs
+    myMultimap.insert({200, 32});
+    myMultimap.insert({100, -12});
+    myMultimap.insert({90, 45});
+
+    // 4. Find the upper bound of key 100 and store result inside iterator variable
+    auto iter = myMultimap.upper_bound(100);
+
+    // 5. Using iterator print keys and values of next two elements that are at upper bound
+    cout << "Keys and values of next two elements at upper bound of key 100:" << endl;
+    for (int count = 0; count < 2 && iter != myMultimap.end(); ++count, ++iter) {
+        cout << "Key: " << iter->first << ", Value: " << iter->second << endl;
+    }
+
+    // 6. Using methods .find() and .erase(), delete elements where key is 100, leaving only one pair
+    auto range = myMultimap.equal_range(100);
+    auto findIter = myMultimap.find(100);
+    if (findIter != myMultimap.end()) {
+        myMultimap.erase(range.first, range.second);
+    }
+
+    // Display resulting map
+    cout << "Resulting map after deleting elements with key 100:" << endl;
+    for (const auto& pair : myMultimap) {
+        cout << "Key: " << pair.first << ", Value: " << pair.second << endl;
+    }
+
+//problem7
+ int numUsers;
+    cout << "Enter the number of users who want to register: ";
+    cin >> numUsers;
+    
+    unordered_set<string> registeredNames;
+    vector<string> uniqueNames;
+    
+    for (int i = 0; i < numUsers; ++i) {
+        string name;
+        cin >> name;
+        
+        if (registeredNames.find(name) == registeredNames.end()) {
+            // If the name doesn't exist, store it and print OK
+            registeredNames.insert(name);
+            uniqueNames.push_back(name);
+            cout << "OK" << endl;
+        } else {
+            // If the name already exists, add a digit to the end and store it
+            int digit = 1;
+            string newName = name + to_string(digit);
+            while (registeredNames.find(newName) != registeredNames.end()) {
+                ++digit;
+                newName = name + to_string(digit);
+            }
+            registeredNames.insert(newName);
+            uniqueNames.push_back(newName);
+            cout << newName << endl;
+        }
+    }
+    
+    cout << "Registered Names:" << endl;
+    for (const auto& name : uniqueNames) {
+        cout << name << endl;
+    }
+
+//problem8
+int numValues;
+    cout << "Enter the number of values in the sequence: ";
+    cin >> numValues;
+    
+    vector<int> sequence(numValues);
+    cout << "Enter the sequence: ";
+    for (int i = 0; i < numValues; ++i) {
+        cin >> sequence[i];
+    }
+    
+    if (isGoodSequence(sequence)) {
+        cout << "The sequence is good." << endl;
+    } else {
+        cout << "The sequence is not good." << endl;
+    }
+    
+//problem9
+set<int> s;
+
+    // Insert values into the set
+    s.insert(5);
+    s.insert(39);
+    s.insert(10);
+    s.insert(64);
+    s.insert(82);
+    s.insert(35);
+    s.insert(10); // Duplicate value
+    s.insert(54);
+
+    cout << "Elements in sorted order: ";
+    show(s);
+//problem10
+unordered_set<int> s;
+
+    // Insert values into the unordered set
+    s.insert(5);
+    s.insert(39);
+    s.insert(10);
+    s.insert(64);
+    s.insert(82);
+    s.insert(35);
+    s.insert(10); // Duplicate value
+    s.insert(54);
+
+    cout << "All elements in the set:" << endl;
+    show(s);
+
+
 
 //problem 18
 
@@ -317,6 +480,8 @@ unordered_map<string, int> myUnorderedMap = {
     cout << endl;
 
     cout << "Size of the resulting vector: " << numbers.size() << endl;
+
+
 
 
 
